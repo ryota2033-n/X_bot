@@ -67,10 +67,23 @@ def post_to_x(text):
     print("API_SECRET:", API_SECRET)
     print("ACCESS_TOKEN:", ACCESS_TOKEN)
     print("ACCESS_TOKEN_SECRET:", ACCESS_TOKEN_SECRET)
-    auth = tweepy.OAuth1UserHandler(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth)
-    api.update_status(text)
-    print('投稿:', text)
+    print("BEARER_TOKEN:", BEARER_TOKEN)
+    print("CLIENT_ID:", CLIENT_ID)
+    print("CLIENT_SECRET:", CLIENT_SECRET)
+    # API v2で投稿（無料プラン対応）
+    try:
+        client = tweepy.Client(
+            bearer_token=BEARER_TOKEN,
+            consumer_key=API_KEY,
+            consumer_secret=API_SECRET,
+            access_token=ACCESS_TOKEN,
+            access_token_secret=ACCESS_TOKEN_SECRET
+        )
+        response = client.create_tweet(text=text)
+        print('投稿:', text)
+        print('レスポンス:', response)
+    except Exception as e:
+        print('投稿エラー:', e)
 
 def job():
     text = generate_guchi()
