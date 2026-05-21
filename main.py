@@ -54,6 +54,11 @@ def generate_guchi():
     return random.choice(FALLBACK_GUCHI)
 
 def post_to_x(text):
+    # デバッグ用: APIキー類の値を出力
+    print("API_KEY:", API_KEY)
+    print("API_SECRET:", API_SECRET)
+    print("ACCESS_TOKEN:", ACCESS_TOKEN)
+    print("ACCESS_TOKEN_SECRET:", ACCESS_TOKEN_SECRET)
     auth = tweepy.OAuth1UserHandler(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth)
     api.update_status(text)
