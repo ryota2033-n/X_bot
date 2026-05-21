@@ -1,9 +1,11 @@
+
 import os
 import random
 import tweepy
 import openai
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
+from flask import Flask
 
 load_dotenv()
 
@@ -60,9 +62,18 @@ def job():
     text = generate_guchi()
     post_to_x(text)
 
+
 def main():
-    scheduler = BlockingScheduler()
-    # 1日10～20回、ランダムな時刻で投稿
+    # Flaskサーバー起動
+    app = Flask(__name__)
+
+    @app.route("/")
+    def index():
+        return "X Bot is running."
+
+    # APScheduler（バックグラウンド）
+    scheduler = BackgroundScheduler()
+
     def schedule_random_jobs():
         scheduler.remove_all_jobs()
         n = random.randint(10, 20)
@@ -77,8 +88,17 @@ def main():
     schedule_random_jobs()
     # 毎日0時に投稿時刻を再設定
     scheduler.add_job(schedule_random_jobs, 'cron', hour=0, minute=0, id='reschedule')
+
+    # 起動直後に即時投稿
+    print('起動直後に即時投稿します...')
+    job()
+
     print('スケジューラ起動中...')
     scheduler.start()
+
+    # Flaskサーバーをポート8080で起動（Railway標準）
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
 
 if __name__ == '__main__':
     main()
