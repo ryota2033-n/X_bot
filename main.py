@@ -10,7 +10,8 @@ from flask import Flask
 load_dotenv()
 
 
-# X(Twitter) APIキー・トークン類
+
+# X(Twitter) APIキー・トークン類（X_付き変数名に統一）
 API_KEY = os.getenv('X_API_KEY')
 API_SECRET = os.getenv('X_API_SECRET')
 ACCESS_TOKEN = os.getenv('X_ACCESS_TOKEN')
