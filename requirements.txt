@@ -2,3 +2,4 @@ tweepy
 openai
 python-dotenv
 apscheduler
+flask
