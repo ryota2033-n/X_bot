@@ -1,12 +1,20 @@
 
+
 import os
 import random
 import tweepy
 import openai
 from apscheduler.schedulers.background import BackgroundScheduler
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 from flask import Flask
 
+# .envファイルを直接読み込む（Railwayで環境変数が渡らない場合の対策）
+env_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(env_path):
+    env_vars = dotenv_values(env_path)
+    for k, v in env_vars.items():
+        if v is not None:
+            os.environ[k] = v
 load_dotenv()
 
 
