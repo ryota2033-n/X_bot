@@ -7,11 +7,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# X(Twitter) APIキー
+
+# X(Twitter) APIキー・トークン類
 API_KEY = os.getenv('X_API_KEY')
 API_SECRET = os.getenv('X_API_SECRET')
 ACCESS_TOKEN = os.getenv('X_ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = os.getenv('X_ACCESS_TOKEN_SECRET')
+BEARER_TOKEN = os.getenv('X_BEARER_TOKEN')
+CLIENT_ID = os.getenv('X_CLIENT_ID')
+CLIENT_SECRET = os.getenv('X_CLIENT_SECRET')
 
 # OpenAI APIキー（未設定でもOK）
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
